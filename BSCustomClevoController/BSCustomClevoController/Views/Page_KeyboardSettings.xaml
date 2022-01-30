@@ -1,0 +1,94 @@
+﻿<Page
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        x:Class="BSCustomClevoController.Views.Page_KeyboardSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BSCustomClevoController.Views"
+        mc:Ignorable="d"
+        d:DesignHeight="720"
+        d:DesignWidth="1280"
+        Background="#252525">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}">
+            
+            <Setter Property="Background" Value="#FFA20025" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bg" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="#cccccc">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#cccccc" TargetName="bg" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#cccccc" TargetName="bg" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+    </Page.Resources>
+    
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="Efektler" Foreground="#cccccc" FontSize="20" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,175,0,0" />
+        <CheckBox x:Name="ModeStatus" Checked="ModeStatus_Checked" Unchecked="ModeStatus_Unchecked" Content="Aktif" Foreground="#cccccc" 
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,250" Grid.Column="0"/>
+        <ListBox x:Name="EffectsListBox" IsEnabled="False" 
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"
+                 Width="200" Height="200" />
+        <Button x:Name="ApplyEffectButton" Click="ApplyEffectButton_Click"
+                Content="Efekti Uygula" TextBlock.Foreground="#cccccc" TextBlock.FontSize="14"
+                Height="23" Width="120" IsEnabled="False"
+                Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,500,0,0" />
+        
+        <TextBlock Text="Klavye Rengi" FontSize="20" Foreground="#cccccc" 
+                       HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,150,0,0" Grid.Column="1" />
+        <CheckBox x:Name="LedStatusCheckBox" Checked="LedStatusCheckBox_Checked" Unchecked="LedStatusCheckBox_Unchecked" Content="Aktif" Foreground="#cccccc" 
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,275" Grid.Column="1" />
+        <Controls:ColorCanvas x:Name="LedColorCanvas" IsEnabled="False" Background="#3c3c3c" SelectedColorChanged="LedColorCanvas_SelectedColorChanged"
+                              LabelAlphaChannel="Parlaklık" LabelColorPreview="Önizleme" LabelColorName="İsim"
+                              Grid.Column="1" Height="275" Width="450" Margin="0,75,0,0"
+                              VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+
+        <CheckBox x:Name="BootEffectCheckBox" Checked="BootEffectCheckBox_Checked" Unchecked="BootEffectCheckBox_Unchecked" Content="Önyükleme Etkisi" Foreground="#cccccc" 
+                  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,30,0" Grid.Column="2" />
+        
+        <TextBlock Text="Klavye Uyku Zamanlayıcısı" FontSize="20" Foreground="#cccccc" 
+                       HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,250,0,0" Grid.Column="2" />
+        <CheckBox x:Name="SleepTimerCheckBox" Checked="SleepTimerCheckBox_Checked" Unchecked="SleepTimerCheckBox_Unchecked" Content="Aktif" Foreground="#cccccc" 
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" Grid.Column="2" />
+        <TextBlock Text="Saat          Dakika        Saniye" FontSize="20" Foreground="#cccccc" 
+                       HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,315,0,0" Grid.Column="2" />
+        <TextBox Name="KeyboarSleepTimerHours" Text="0" FontSize="20" TextAlignment="Center" TextChanged="KeyboarSleepTimer_TextChanged"
+                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,200,0" 
+                 Width="75" Height="40" IsEnabled="False"/>
+        <TextBox Name="KeyboarSleepTimerMunites" Text="0" FontSize="20" TextAlignment="Center" TextChanged="KeyboarSleepTimer_TextChanged"
+                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0" 
+                 Width="75" Height="40" IsEnabled="False"/>
+        <TextBox Name="KeyboarSleepTimerSeconds" Text="0" FontSize="20" TextAlignment="Center" TextChanged="KeyboarSleepTimer_TextChanged"
+                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,50,0,0" 
+                 Width="75" Height="40" IsEnabled="False"/>
+        <Button Name="KeyboarSleepTimerApplyButton" Content="Uygula" FontSize="20" Click="KeyboarSleepTimerApplyButton_Click"
+                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,175,0,0" 
+                 Width="150" Height="40" IsEnabled="False"/>
+
+
+    </Grid>
+    
+</Page>
