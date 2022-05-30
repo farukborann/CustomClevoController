@@ -14,7 +14,7 @@
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
 
-            <Setter Property="Background" Value="#FFA20025" />
+            <Setter Property="Background" Value="#D91919" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -40,7 +40,7 @@
     <Grid>
         <Canvas x:Name="mainCanvas" MouseUp="mainCanvas_MouseUp" MouseMove="mainCanvas_MouseMove"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Height="75" Width="75">
-            <Image x:Name="image" Source="/Assets/Page_FanSettings/main.png" Width="75" Height="75" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Image x:Name="image" Source="/Assets/Page_FanSettings/middle.png" Width="75" Height="75" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <TextBlock Text="Otomatik" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Foreground="#cccccc" 
                        Width="75" Canvas.Top="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Canvas.Style>
@@ -56,7 +56,7 @@
 
         <Canvas x:Name="leftCanvas" MouseUp="leftCanvas_MouseUp" MouseMove="leftCanvas_MouseMove"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="162" Margin="0,25,275,0"  >
-            <Image Source="/Assets/Page_FanSettings/sol.png" Width="210" Height="162" />
+            <Image Source="/Assets/Page_FanSettings/button.png" Width="210" Height="162" />
             <TextBlock Text="Toz Karşıtı (Destekliyorsa)" TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Foreground="#cccccc" 
                        Width="100" Canvas.Top="65" Canvas.Left="55"/>
 
@@ -73,7 +73,7 @@
 
         <Canvas x:Name="upCanvas" MouseUp="upCanvas_MouseUp" MouseMove="upCanvas_MouseMove"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="162" Margin="0,0,25,275" >
-            <Image Source="/Assets/Page_FanSettings/sol.png" Width="210" Height="162" RenderTransformOrigin="0.5,0.5">
+            <Image Source="/Assets/Page_FanSettings/button.png" Width="210" Height="162" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -99,7 +99,7 @@
 
         <Canvas x:Name="rightCanvas" MouseUp="rightCanvas_MouseUp" MouseMove="rightCanvas_MouseMove"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="162" Margin="275,0,0,25" >
-            <Image Source="/Assets/Page_FanSettings/sol.png" Width="210" Height="162" RenderTransformOrigin="0.5,0.5">
+            <Image Source="/Assets/Page_FanSettings/button.png" Width="210" Height="162" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -125,7 +125,7 @@
 
         <Canvas x:Name="downCanvas" MouseUp="downCanvas_MouseUp" MouseMove="downCanvas_MouseMove"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="210" Height="162" Margin="25,275,0,0" >
-            <Image Source="/Assets/Page_FanSettings/sol.png" Width="210" Height="162" RenderTransformOrigin="0.5,0.5">
+            <Image Source="/Assets/Page_FanSettings/button.png" Width="210" Height="162" RenderTransformOrigin="0.5,0.5">
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>

@@ -10,7 +10,7 @@ namespace BSCustomClevoController.Views
     /// </summary>
     public partial class Page_PerformanceSettings : Page
     {
-        SolidColorBrush colorRed = new SolidColorBrush(Color.FromArgb(255,167,0,32));
+        SolidColorBrush colorRed = new SolidColorBrush(Color.FromArgb(255, 217, 25, 25));
         SolidColorBrush colorGray = new SolidColorBrush(Color.FromArgb(255, 204, 204, 204));
 
         string QuietModeDes = "Fan ses çıkartmayacak kadar yavaşlatılır, uzun kullanımda fazla ısınmaya yol açabilir.";
@@ -23,7 +23,7 @@ namespace BSCustomClevoController.Views
             InitializeComponent();
             switch (PowerMode.GetStatus())
             {
-                case PowerMode.Mode.Quiet: 
+                case PowerMode.Mode.Quiet:
                     SetButtonsColors(QuietModeBtnText);
                     modeDetais.Text = QuietModeDes;
                     break;

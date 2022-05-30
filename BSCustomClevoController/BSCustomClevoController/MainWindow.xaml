@@ -4,42 +4,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:tb="http://www.hardcodet.net/taskbar"
-        xmlns:local="clr-namespace:BSCustomClevoController"
-    
-        xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-    
         Height="720" Width="1280"
         WindowStartupLocation="CenterScreen"
         TitleForeground="#252525"
-        WindowTitleBrush="#FFA20025"
+        WindowTitleBrush="#D91919"
         Title="Custom Clevo Controller"
-        Controls:FontFamily="Calisto MT"
         BorderThickness="0"
         ResizeMode="NoResize"
-        ShowTitleBar="False"
+        ShowIconOnTitleBar="False"
         IgnoreTaskbarOnMaximize="True"
-        Icon="/Assets/main_icon.png" Closing="MetroWindow_Closing">
+        Icon="/Assets/main_icon.png" 
+        Closing="MetroWindow_Closing"
+        TextBlock.TextAlignment="Center">
+
+
 
     <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
-                          DisplayMode="CompactOverlay"
-                          HamburgerWidth="48" PaneBackground="#FFA20025" PaneForeground="#252525" ItemClick="HamburgerMenuControl_ItemClick">
+                            DisplayMode="CompactOverlay" HamburgerWidth="48" 
+                            PaneBackground="#D91919" PaneForeground="#252525" 
+                            ItemClick="HamburgerMenuControl_ItemClick" SelectedIndex="0">
 
         <Controls:HamburgerMenu.ItemsSource>
             <Controls:HamburgerMenuItemCollection>
-                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/icon_performance.png" Label="Performans Ayarları" Tag="PerformanceSettings" />
-                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/icon_keyboard.png" Label="Klavye Seçenekleri" Tag="KeyboardSettings" />
-                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/icon_fan.png" Label="Fan Ayarları" Tag="FanSettings" />
-                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/icon_others.png" Label="Diğer Ayarlar" Tag="OtherSettings" />
+                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/PerformanceSettings_Selected.png" Label="Performans Ayarları" Tag="PerformanceSettings"/>
+                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/KeyboardSettings.png" Label="Klavye Seçenekleri" Tag="KeyboardSettings" />
+                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/FanSettings.png" Label="Fan Ayarları" Tag="FanSettings" />
+                <Controls:HamburgerMenuIconItem Icon="/Assets/Main_Window/OtherSettings.png" Label="Diğer Ayarlar" Tag="OtherSettings" />
             </Controls:HamburgerMenuItemCollection>
         </Controls:HamburgerMenu.ItemsSource>
 
         <Controls:HamburgerMenu.ItemTemplate>
             <DataTemplate>
                 <Grid x:Name="HamburgerItemGrid" Height="50">
-
+                    
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48" />
                         <ColumnDefinition Width="*"/>
@@ -55,7 +54,6 @@
                                FontSize="16"
                                Foreground="Black"
                                Text="{Binding Label}" />
-
                 </Grid>
             </DataTemplate>
         </Controls:HamburgerMenu.ItemTemplate>

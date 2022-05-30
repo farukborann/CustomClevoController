@@ -1,13 +1,12 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Forms;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Drawing;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using MahApps.Metro.Controls;
 using System.IO;
 using System.Reflection;
-using BSCustomClevoController.Utility;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Navigation;
 
 namespace BSCustomClevoController
 {
@@ -27,9 +26,9 @@ namespace BSCustomClevoController
             NotifyIcon notifyIcon = new NotifyIcon { Icon = new Icon(stream), Visible = true };
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Performans Ayarları", null, notifyIconContext_ExitClick));
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Klavye Ayarları", null, notifyIconContext_ExitClick));
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Fan Ayarları", null, notifyIconContext_ExitClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Performans Ayarları", null, notifyIconContext_PerformanceMenuClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Klavye Ayarları", null, notifyIconContext_KeyboardMenuClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Fan Ayarları", null, notifyIconContext_FanMenuClick));
             notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Çıkış", null, notifyIconContext_ExitClick));
 
             notifyIcon.DoubleClick += delegate (object sender, EventArgs args)
@@ -48,6 +47,24 @@ namespace BSCustomClevoController
             _frame.Navigate(new Uri("Views\\Page_PerformanceSettings.xaml", UriKind.Relative));
         }
 
+        private void notifyIconContext_PerformanceMenuClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            _frame.Navigate(new Uri("Views\\Page_PerformanceSettings.xaml", UriKind.Relative));
+        }
+        private void notifyIconContext_KeyboardMenuClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            _frame.Navigate(new Uri("Views\\Page_KeyboardSettings.xaml", UriKind.Relative));
+        }
+        private void notifyIconContext_FanMenuClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            _frame.Navigate(new Uri("Views\\Page_FanSettings.xaml", UriKind.Relative));
+        }
         private void notifyIconContext_ExitClick(object sender, EventArgs e)
         {
             Environment.Exit(0);
@@ -63,7 +80,18 @@ namespace BSCustomClevoController
 
         private void HamburgerMenuControl_ItemClick(object sender, ItemClickEventArgs args)
         {
-            _frame.Navigate(new Uri(string.Format("Views\\Page_{0}.xaml", ((HamburgerMenuIconItem)args.ClickedItem).Tag), UriKind.Relative));//((MahApps.Metro.Controls.HamburgerMenu)sender).SelectedItem ((HamburgerMenuIconItem)args.ClickedItem).Tag
+            _frame.Navigate(new Uri(string.Format("Views\\Page_{0}.xaml", ((HamburgerMenuIconItem)args.ClickedItem).Tag), UriKind.Relative));
+            foreach(HamburgerMenuIconItem item in ((HamburgerMenu)sender).Items)
+            {
+                if (item == ((HamburgerMenuIconItem)args.ClickedItem))
+                {
+                    item.Icon = "/Assets/Main_Window/" + item.Tag + "_Selected.png";
+                }
+                else
+                {
+                    item.Icon = "/Assets/Main_Window/" + item.Tag + ".png";
+                }
+            }
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

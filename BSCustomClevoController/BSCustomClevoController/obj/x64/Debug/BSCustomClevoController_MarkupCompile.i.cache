@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Omer Faruk BORAN\Desktop\Workspace\Projects\BSCustomClevoController\BSCustomClevoController\obj\x64\Debug\
+C:\Users\Boran\Desktop\Workspace\CustomClevoController\BSCustomClevoController\BSCustomClevoController\obj\x64\Debug\
 BSCustomClevoController
 none
 false
 DEBUG;TRACE
-C:\Users\Omer Faruk BORAN\Desktop\Workspace\Projects\BSCustomClevoController\BSCustomClevoController\App.xaml
-5-836681173
+C:\Users\Boran\Desktop\Workspace\CustomClevoController\BSCustomClevoController\BSCustomClevoController\App.xaml
+6-1385456967
 
-18-1279645938
-24-2108296241
-MainWindow.xaml;Views\Page_KeyboardSettings.xaml;Views\Page_FanSettings.xaml;Views\Page_OtherSettings.xaml;Views\Page_PerformanceSettings.xaml;
+182081798135
+231113140822
+Dark.RedBlack.xaml;MainWindow.xaml;Views\Page_KeyboardSettings.xaml;Views\Page_FanSettings.xaml;Views\Page_OtherSettings.xaml;Views\Page_PerformanceSettings.xaml;
 
-False
+True
 

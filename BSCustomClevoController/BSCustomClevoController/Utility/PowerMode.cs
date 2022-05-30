@@ -1,7 +1,4 @@
-using System;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace BSCustomClevoController.Utility
 {
@@ -32,14 +29,15 @@ namespace BSCustomClevoController.Utility
             Unknown,
         }
 
-        static Mode LookupMode(byte mode) {
+        static Mode LookupMode(byte mode)
+        {
             switch (mode)
             {
-                case 0 : return Mode.Quiet;
-                case 1 : return Mode.Powersaving;
-                case 2 : return Mode.Performance;
-                case 3 : return Mode.Entertainment;
-                default : return Mode.Entertainment;
+                case 0: return Mode.Quiet;
+                case 1: return Mode.Powersaving;
+                case 2: return Mode.Performance;
+                case 3: return Mode.Entertainment;
+                default: return Mode.Entertainment;
             }
         }
 

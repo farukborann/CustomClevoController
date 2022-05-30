@@ -14,7 +14,7 @@
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
 
-            <Setter Property="Background" Value="#FFA20025" />
+            <Setter Property="Background" Value="#D91919" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">

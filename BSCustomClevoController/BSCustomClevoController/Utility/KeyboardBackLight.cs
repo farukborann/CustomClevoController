@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using static BSCustomClevoController.Utility.Structs;
 
@@ -17,19 +16,6 @@ namespace BSCustomClevoController.Utility
         [DllImport("InsydeDCHU.dll")]
         public static extern int ReadAppSettings(int page, int offset, int length, ref byte buffer);
 
-        //Set Effects
-
-        public static KeyboardEffect Random = new KeyboardEffect() { Name = "Random", UniqId = 112, Id = 0 }; /// Goes every ~0.5 sec to a different random colour (with the current brightness)
-        public static KeyboardEffect Breath = new KeyboardEffect() { Name = "Nefes", UniqId = 16, Id = 2 }; /// Breaths with the current colour (cycles from 0 to brightness, around 2 sec)
-        public static KeyboardEffect Cycle = new KeyboardEffect() { Name = "Döngü", UniqId = 51, Id = 3 }; /// Cycles through primary and secondary colours (going from 0 to brightness in between, around 2sec). Blue, Green, Red, Blue?, Cyan, Yellow, Pink  
-        public static KeyboardEffect Wave = new KeyboardEffect() { Name = "Dalga", UniqId = 176, Id = 4 }; /// Slowely (around every 10 sec) shows a random colour slowly increasing and then decreasing the brightness (goes from 0 to brightness)
-        public static KeyboardEffect Dance = new KeyboardEffect() { Name = "Dans", UniqId = 128, Id = 5 }; /// Flashes every 0.5 sec with a different random colour (goes from 0 to brightness)
-        public static KeyboardEffect Tempo = new KeyboardEffect() { Name = "Tempo", UniqId = 144, Id = 6 }; /// Flashes a colour, then goes off shortly, then flashes the same colour, then goes off longer ~1sec, then starts over with a different colour (goes from 0 to brightness)
-        public static KeyboardEffect Flash = new KeyboardEffect() { Name = "Flash", UniqId = 160, Id = 7 }; /// Flashes every 1 sec with a different random colour (goes from 0 to brightness)
-        public static KeyboardEffect SoftwareBreath = new KeyboardEffect() { Name = "Nefes", UniqId = 0, Id = 8, Func = KeyboardSofwareEffects.BreathEffect, Milisecons = 0 }; // , Milisecons=40
-        public static KeyboardEffect SoftwareCycle = new KeyboardEffect() { Name = "Döngü", UniqId = 0, Id = 9, Func = KeyboardSofwareEffects.CycleEffect, Milisecons = 100 };
-
-        public static List<KeyboardEffect> KeyboardEffects = new List<KeyboardEffect>() { Random, Breath, Cycle, Wave, Dance, Tempo, Flash, SoftwareBreath, SoftwareCycle };
 
         public static KeyboardStatus GetStatus()
         {
@@ -49,9 +35,14 @@ namespace BSCustomClevoController.Utility
             byte sleepstatus = 0;
             ReadAppSettings(2, 36, 1, ref sleepstatus);
 
-            return new KeyboardStatus() { BackLight = Color.FromArgb(brightness, colour[0], colour[1], colour[2]),
-                                          Effect = KeyboardEffect.LookUpEffect(mode), LightState = Convert.ToBoolean(status), BootEffect = Convert.ToBoolean(booteffect),
-                                          SleepSecond = sleepsec, SleepState = Convert.ToBoolean(sleepstatus)
+            return new KeyboardStatus()
+            {
+                BackLight = Color.FromArgb(brightness, colour[0], colour[1], colour[2]),
+                Effect = KeyboardEffect.LookUpEffect(mode),
+                LightState = Convert.ToBoolean(status),
+                BootEffect = Convert.ToBoolean(booteffect),
+                SleepSecond = sleepsec,
+                SleepState = Convert.ToBoolean(sleepstatus)
             };
         }
 

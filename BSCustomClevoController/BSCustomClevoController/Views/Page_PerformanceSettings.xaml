@@ -17,7 +17,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Margin" Value="25,40,25,25" />
-            <Setter Property="Background" Value="#FF2F2F2F" />
+            <Setter Property="Background" Value="#2F2F2F" />
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -65,7 +65,7 @@
                             <RowDefinition Height="15*" />
                         </Grid.RowDefinitions>
 
-                        <Image Source="/Assets/Page_PerformanceSettings/icon_fan.png" />
+                        <Image Source="/Assets/Page_PerformanceSettings/icon_slient.png" />
                         <TextBlock x:Name="QuietModeBtnText" Text="Sessiz Mod" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#cccccc" TextAlignment="Center" 
                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
 
@@ -82,7 +82,7 @@
                             <RowDefinition Height="15*" />
                         </Grid.RowDefinitions>
 
-                        <Image Source="/Assets/Page_PerformanceSettings/icon_battery.png" />
+                        <Image Source="/Assets/Page_PerformanceSettings/icon_powersave.png" />
                         <TextBlock x:Name="PowerSaveModeBtnText" Text="Güç Tasarrufu" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2" TextAlignment="Center" 
                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
 
@@ -99,8 +99,8 @@
                             <RowDefinition Height="15*" />
                         </Grid.RowDefinitions>
 
-                        <Image Source="/Assets/Page_PerformanceSettings/icon_entertainment.png" />
-                        <TextBlock x:Name="EntertainmentModeBtnText" Text="Eğlence Modu" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2"  TextAlignment="Center" 
+                        <Image Source="/Assets/Page_PerformanceSettings/icon_entartainment.png" />
+                        <TextBlock x:Name="EntertainmentModeBtnText" Text="Eglence Modu" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2"  TextAlignment="Center" 
                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
 
                     </Grid>

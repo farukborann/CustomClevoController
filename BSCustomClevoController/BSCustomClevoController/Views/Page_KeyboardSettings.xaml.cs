@@ -1,9 +1,8 @@
 ﻿using BSCustomClevoController.Utility;
 using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Media;
 using static BSCustomClevoController.Utility.Structs;
 
 namespace BSCustomClevoController.Views
@@ -16,15 +15,19 @@ namespace BSCustomClevoController.Views
         public Page_KeyboardSettings()
         {
             InitializeComponent();
-            
+
             KeyboardStatus status = KeyboardBackLight.GetStatus();
 
             //Set effects controls
-            EffectsListBox.ItemsSource = KeyboardBackLight.KeyboardEffects;
-            if (!status.Effect.Equals(default(KeyboardEffect))) 
+            EffectsListBox.ItemsSource = KeyboardEffects.Effects;
+            if (!status.Effect.Equals(default(KeyboardEffect)))
             {
                 ModeStatus.IsChecked = true;
-                EffectsListBox.SelectedIndex = KeyboardBackLight.KeyboardEffects.FindIndex(x => x.Equals(status.Effect));
+                for(int i=0; i<KeyboardEffects.Effects.Length; i++)
+                {
+                    if (KeyboardEffects.Effects[i].UniqId == status.Effect.UniqId) EffectsListBox.SelectedIndex = i;
+                }
+                //EffectsListBox.SelectedIndex = KeyboardEffects.Effects.FindIndex(status.Effect);
             }
 
 
@@ -32,24 +35,31 @@ namespace BSCustomClevoController.Views
             if (status.LightState) { LedStatusCheckBox.IsChecked = true; }
 
             //Set booteffect
-            if(status.BootEffect) { BootEffectCheckBox.IsChecked = true; }
+            if (status.BootEffect) { BootEffectCheckBox.IsChecked = true; }
 
             //Set timer
-            if(status.SleepState) {
-                SleepTimerCheckBox.IsChecked = true;
-                KeyboarSleepTimerApplyButton.IsEnabled = true;
-                KeyboarSleepTimerHours.IsEnabled = true;
-                KeyboarSleepTimerMunites.IsEnabled = true;
-                KeyboarSleepTimerSeconds.IsEnabled = true;
-
+            if (!status.SleepState)
+            {
+                KeyboarSleepTimerHours.Text = "0";
+                KeyboarSleepTimerMunites.Text = "0";
+                KeyboarSleepTimerSeconds.Text = "0";
+            }
+            else
+            {
                 KeyboarSleepTimerHours.Text = Convert.ToString(status.SleepSecond / 3600);
                 KeyboarSleepTimerMunites.Text = Convert.ToString(status.SleepSecond % 3600 / 60);
                 KeyboarSleepTimerSeconds.Text = Convert.ToString(status.SleepSecond % 3600 % 60);
             }
+            KeyboarSleepTimerHours.TextChanged += KeyboarSleepTimer_TextChanged;
+            KeyboarSleepTimerMunites.TextChanged += KeyboarSleepTimer_TextChanged;
+            KeyboarSleepTimerSeconds.TextChanged += KeyboarSleepTimer_TextChanged;
+
+
         }
 
         private void LedColorCanvas_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
+            System.Threading.Thread.Sleep(10);
             KeyboardBackLight.SetColour(Convert.ToByte(LedColorCanvas.R), Convert.ToByte(LedColorCanvas.G), Convert.ToByte(LedColorCanvas.B));
             KeyboardBackLight.SetBrightness(Convert.ToByte(LedColorCanvas.A));
         }
@@ -64,6 +74,10 @@ namespace BSCustomClevoController.Views
         {
             EffectsListBox.IsEnabled = false;
             ApplyEffectButton.IsEnabled = false;
+            if (KeyboardBackLight.GetStatus().Effect.Timer != null)
+            {
+                KeyboardBackLight.GetStatus().Effect.Timer.Stop();
+            }
         }
 
         private void LedStatusCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -74,9 +88,9 @@ namespace BSCustomClevoController.Views
                 LedColorCanvas.IsEnabled = true;
 
                 KeyboardBackLight.TurnOn();
-                KeyboardBackLight.SetColour(255,0,0);
+                KeyboardBackLight.SetColour(255, 0, 0);
                 KeyboardBackLight.SetBrightness(255);
-                LedColorCanvas.SelectedColor = Color.FromRgb(255,0,0);
+                LedColorCanvas.SelectedColor = Color.FromRgb(255, 0, 0);
             }
             else
             {
@@ -88,14 +102,14 @@ namespace BSCustomClevoController.Views
 
         private void LedStatusCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            LedColorCanvas.IsEnabled= false;
+            LedColorCanvas.IsEnabled = false;
             KeyboardBackLight.TurnOff();
         }
 
         private void ApplyEffectButton_Click(object sender, RoutedEventArgs e)
         {
             KeyboardBackLight.SetBrightness(255);
-            KeyboardBackLight.KeyboardEffects[EffectsListBox.SelectedIndex].SetEffect();
+            KeyboardEffects.Effects[EffectsListBox.SelectedIndex].SetEffect();
         }
 
         private void BootEffectCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -108,43 +122,24 @@ namespace BSCustomClevoController.Views
             KeyboardBackLight.OverrideBootEffect(false);
         }
 
-        private void SleepTimerCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            KeyboarSleepTimerApplyButton.IsEnabled = true;
-            KeyboarSleepTimerHours.IsEnabled = true;
-            KeyboarSleepTimerMunites.IsEnabled = true;
-            KeyboarSleepTimerSeconds.IsEnabled = true;
-        }
-
-        private void SleepTimerCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            KeyboardBackLight.TurnSleepTimerOff();
-            KeyboarSleepTimerApplyButton.IsEnabled = false;
-            KeyboarSleepTimerHours.IsEnabled = false;
-            KeyboarSleepTimerMunites.IsEnabled = false;
-            KeyboarSleepTimerSeconds.IsEnabled = false;
-        }
-
         private void KeyboarSleepTimer_TextChanged(object sender, TextChangedEventArgs e)
         {
+            int time = 0;
             try
             {
-                int time = Convert.ToInt32(((TextBox)sender).Text);
-                if(time > 59) ((TextBox)sender).Text = "59";
+                int value = Convert.ToInt32(((TextBox)sender).Text);
+                if (value > 59) ((TextBox)sender).Text = "59";
             }
             catch (FormatException)
             {
-                if(((TextBox)sender).Text != "") ((TextBox)sender).Text = "0";
+                if (((TextBox)sender).Text != "") ((TextBox)sender).Text = "0";
             }
-        }
 
-        private void KeyboarSleepTimerApplyButton_Click(object sender, RoutedEventArgs e)
-        {
-            int time = 0;
-            if (KeyboarSleepTimerHours.Text != "") time += Convert.ToInt32(KeyboarSleepTimerHours.Text) * 3600;
-            if (KeyboarSleepTimerMunites.Text != "") time += Convert.ToInt32(KeyboarSleepTimerMunites.Text) * 60;
-            if (KeyboarSleepTimerSeconds.Text != "") time += Convert.ToInt32(KeyboarSleepTimerSeconds.Text);
-            KeyboardBackLight.SetSleepTimer(time);
+            time += Convert.ToInt32(KeyboarSleepTimerHours != null && KeyboarSleepTimerHours.Text != "" ? KeyboarSleepTimerHours.Text : "0") * 3600 +
+                    Convert.ToInt32(KeyboarSleepTimerMunites != null && KeyboarSleepTimerMunites.Text != "" ? KeyboarSleepTimerMunites.Text : "0") * 60 +
+                    Convert.ToInt32(KeyboarSleepTimerSeconds != null && KeyboarSleepTimerSeconds.Text != "" ? KeyboarSleepTimerSeconds.Text : "0");
+            if (time != 0) { KeyboardBackLight.SetSleepTimer(time); }
+            else { KeyboardBackLight.TurnSleepTimerOff(); }
         }
     }
 }

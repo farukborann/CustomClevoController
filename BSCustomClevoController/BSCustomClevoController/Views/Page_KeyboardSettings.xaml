@@ -13,8 +13,8 @@
 
     <Page.Resources>
         <Style TargetType="{x:Type Button}">
-            
-            <Setter Property="Background" Value="#FFA20025" />
+
+            <Setter Property="Background" Value="#D91919" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -40,53 +40,61 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         
-        <TextBlock Text="Efektler" Foreground="#cccccc" FontSize="20" 
-                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,175,0,0" />
-        <CheckBox x:Name="ModeStatus" Checked="ModeStatus_Checked" Unchecked="ModeStatus_Unchecked" Content="Aktif" Foreground="#cccccc" 
-                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,250" Grid.Column="0"/>
-        <ListBox x:Name="EffectsListBox" IsEnabled="False" 
-                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"
-                 Width="200" Height="200" />
-        <Button x:Name="ApplyEffectButton" Click="ApplyEffectButton_Click"
-                Content="Efekti Uygula" TextBlock.Foreground="#cccccc" TextBlock.FontSize="14"
-                Height="23" Width="120" IsEnabled="False"
-                Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,500,0,0" />
+
         
         <TextBlock Text="Klavye Rengi" FontSize="20" Foreground="#cccccc" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,150,0,0" Grid.Column="1" />
-        <CheckBox x:Name="LedStatusCheckBox" Checked="LedStatusCheckBox_Checked" Unchecked="LedStatusCheckBox_Unchecked" Content="Aktif" Foreground="#cccccc" 
-                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,275" Grid.Column="1" />
+                   HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,150,0,0" Grid.Column="0" />
+        <CheckBox x:Name="LedStatusCheckBox" Checked="LedStatusCheckBox_Checked" Unchecked="LedStatusCheckBox_Unchecked"
+                  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="165,156,0,0" Grid.Column="0" />
         <Controls:ColorCanvas x:Name="LedColorCanvas" IsEnabled="False" Background="#3c3c3c" SelectedColorChanged="LedColorCanvas_SelectedColorChanged"
                               LabelAlphaChannel="Parlaklık" LabelColorPreview="Önizleme" LabelColorName="İsim"
-                              Grid.Column="1" Height="275" Width="450" Margin="0,75,0,0"
+                              Grid.Column="0" Height="275" Width="450" Margin="0,0,0,0"
                               VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
 
-        <CheckBox x:Name="BootEffectCheckBox" Checked="BootEffectCheckBox_Checked" Unchecked="BootEffectCheckBox_Unchecked" Content="Önyükleme Etkisi" Foreground="#cccccc" 
-                  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,30,0" Grid.Column="2" />
+        <TextBlock Text="Önyükleme Etkisi" Foreground="#cccccc" FontSize="15" 
+                   HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,62,0" Grid.Column="1"/>
+        <CheckBox x:Name="BootEffectCheckBox" Checked="BootEffectCheckBox_Checked" Unchecked="BootEffectCheckBox_Unchecked" Foreground="#cccccc" 
+                  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,52,30,0" Grid.Column="1" />
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Efektler" Foreground="#cccccc" FontSize="20" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,125,20,0" Grid.Row="0"/>
+            <CheckBox x:Name="ModeStatus" Checked="ModeStatus_Checked" Unchecked="ModeStatus_Unchecked" Foreground="#cccccc" 
+                  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="100,132,0,0" Grid.Row="0"/>
+            <ListBox x:Name="EffectsListBox" IsEnabled="False" 
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,75,0,0"
+                 Width="200" Height="200" Grid.Row="0" />
+            <Button x:Name="ApplyEffectButton" Click="ApplyEffectButton_Click"
+                Content="Efekti Uygula" TextBlock.FontSize="14"
+                Height="23" Width="120" IsEnabled="False"
+                Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,325,0,0" />
+
+            
+            <TextBlock Text="Klavye Uyku Zamanlayıcısı" FontSize="20" Foreground="#cccccc" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,100" Grid.Row="1" />
+            <TextBlock Text="Saat          Dakika        Saniye" FontSize="20" Foreground="#cccccc" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,30" Grid.Row="1" />
+            <TextBox Name="KeyboarSleepTimerHours" Text="0" FontSize="20" TextAlignment="Center"
+                 Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,200,0" 
+                 Width="75" Height="40"/>
+            <TextBox Name="KeyboarSleepTimerMunites" Text="0" FontSize="20" TextAlignment="Center"
+                 Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0" 
+                 Width="75" Height="40"/>
+            <TextBox Name="KeyboarSleepTimerSeconds" Text="0" FontSize="20" TextAlignment="Center"
+                 Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,50,0,0" 
+                 Width="75" Height="40"/>
+        </Grid>
         
-        <TextBlock Text="Klavye Uyku Zamanlayıcısı" FontSize="20" Foreground="#cccccc" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,250,0,0" Grid.Column="2" />
-        <CheckBox x:Name="SleepTimerCheckBox" Checked="SleepTimerCheckBox_Checked" Unchecked="SleepTimerCheckBox_Unchecked" Content="Aktif" Foreground="#cccccc" 
-                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,100" Grid.Column="2" />
-        <TextBlock Text="Saat          Dakika        Saniye" FontSize="20" Foreground="#cccccc" 
-                       HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,315,0,0" Grid.Column="2" />
-        <TextBox Name="KeyboarSleepTimerHours" Text="0" FontSize="20" TextAlignment="Center" TextChanged="KeyboarSleepTimer_TextChanged"
-                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,200,0" 
-                 Width="75" Height="40" IsEnabled="False"/>
-        <TextBox Name="KeyboarSleepTimerMunites" Text="0" FontSize="20" TextAlignment="Center" TextChanged="KeyboarSleepTimer_TextChanged"
-                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0" 
-                 Width="75" Height="40" IsEnabled="False"/>
-        <TextBox Name="KeyboarSleepTimerSeconds" Text="0" FontSize="20" TextAlignment="Center" TextChanged="KeyboarSleepTimer_TextChanged"
-                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,50,0,0" 
-                 Width="75" Height="40" IsEnabled="False"/>
-        <Button Name="KeyboarSleepTimerApplyButton" Content="Uygula" FontSize="20" Click="KeyboarSleepTimerApplyButton_Click"
-                 Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,175,0,0" 
-                 Width="150" Height="40" IsEnabled="False"/>
+
 
 
     </Grid>

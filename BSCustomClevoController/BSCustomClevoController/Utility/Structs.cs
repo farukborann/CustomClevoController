@@ -24,32 +24,39 @@ namespace BSCustomClevoController.Utility
             public int Milisecons;
             public Action<object, EventArgs> Func;
 
-            private DispatcherTimer Timer
+            private DispatcherTimer _Timer;
+            public DispatcherTimer Timer
             {
                 get
                 {
-                    if (Func != null) 
+                    if (_Timer == null)
                     {
-                        DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(1)};
-                        timer.Tick += new EventHandler(Func);
-                        return timer;
+                        _Timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(Milisecons) };
+                        _Timer.Tick += new EventHandler(Func);
                     }
-                    else return null;
+                    return _Timer;
                 }
             }
 
             public static KeyboardEffect LookUpEffect(byte mode)
             {
                 if (mode == 8) return FindSoftwareEffect();
-                else return KeyboardBackLight.KeyboardEffects.Find(x => x.UniqId == mode);
+                else
+                {
+                    foreach (KeyboardEffect effect in KeyboardEffects.Effects)
+                    {
+                        if (effect.UniqId == mode) { return effect; }
+                    }
+                    return default;
+                }
             }
 
             public static KeyboardEffect FindSoftwareEffect()
             {
-                foreach (KeyboardEffect effect in KeyboardBackLight.KeyboardEffects)
+                foreach (KeyboardEffect effect in KeyboardEffects.Effects)
                 {
-                    if (effect.Timer != null && effect.Timer.IsEnabled) return effect;
-                }   
+                    if (effect.UniqId == 0 && effect.Timer != null && effect.Timer.IsEnabled) return effect;
+                }
                 return default;
             }
 
@@ -61,7 +68,14 @@ namespace BSCustomClevoController.Utility
             public void SetEffect()
             {
                 if (UniqId != 0) { KeyboardBackLight.SetMode(this); }
-                else { this.Timer.Start(); }
+                else 
+                {
+                    if (FindSoftwareEffect()._Timer != null) 
+                    { 
+                        FindSoftwareEffect().Timer.Stop(); 
+                    }
+                    Timer.Start();
+                }
             }
         }
 
@@ -69,7 +83,6 @@ namespace BSCustomClevoController.Utility
         {
             public Fan.Mode Mode;
             public int Offset;
-            public string Speed;
             public FanInfo Fan_CPU;
             public FanInfo Fan_GPU1;
         }
@@ -95,7 +108,7 @@ namespace BSCustomClevoController.Utility
             public int remote;
             public int percent;
 
-            public FanInfo(int T1, int D1, int T2, int D2, int T3, int D3) 
+            public FanInfo(int T1, int D1, int T2, int D2, int T3, int D3)
             {
                 this.T1 = (byte)T1;
                 this.T2 = (byte)T2;

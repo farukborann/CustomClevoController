@@ -97,7 +97,7 @@ namespace BSCustomClevoController.Views
             int remote_GPU = 0;
 
             Fan.Read_FanSpeed(ref rpm_CPU, ref percent_CPU, ref remote_CPU, ref rpm_GPU, ref percent_GPU, ref remote_GPU);
-            
+
             RpmCpuText.Text = string.Format("{0} RPM {1}% {2}°C", rpm_CPU > 0 ? rpm_CPU : 0, percent_CPU > 0 ? percent_CPU : 0, remote_CPU > 0 ? remote_CPU : 0);
             RpmGpuText.Text = string.Format("{0} RPM {1}% {2}°C", rpm_GPU > 0 ? rpm_GPU : 0, percent_GPU > 0 ? percent_CPU : 0, remote_GPU > 0 ? remote_GPU : 0);
 

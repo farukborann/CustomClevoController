@@ -78,7 +78,7 @@ namespace BSCustomClevoController.Utility
 
         static Mode LookupMode(byte mode)
         {
-            switch(mode)
+            switch (mode)
             {
                 case 0: return Mode.Auto;
                 case 1: return Mode.Max;
@@ -103,7 +103,7 @@ namespace BSCustomClevoController.Utility
             int CPU_R23 = (int)Math.Round((CPU.D3 - CPU.D2) / (CPU.T3 - CPU.T2) * 2.55 * 16.0, 0);
             int CPU_R34 = (int)Math.Round((100 - CPU.D3) / (100 - CPU.T3) * 2.55 * 16.0, 0);
             int GPU_R12 = (int)Math.Round((GPU.D2 - GPU.D1) / (double)(GPU.T2 - GPU.T1) * 2.55 * 16.0, 0);
-            int GPU_R23 = (int)Math.Round((GPU.D3- GPU.D2) / (double)(GPU.T3 - GPU.T2) * 2.55 * 16.0, 0);
+            int GPU_R23 = (int)Math.Round((GPU.D3 - GPU.D2) / (double)(GPU.T3 - GPU.T2) * 2.55 * 16.0, 0);
             int GPU_R34 = (int)Math.Round((100 - GPU.D2) / (double)(100 - GPU.T3) * 2.55 * 16.0, 0);
             buffer[14] = (byte)(CPU_R12 >> 8);
             buffer[15] = (byte)(CPU_R12 & byte.MaxValue);

@@ -75,11 +75,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
-    </Reference>
-    <Reference Include="HamburgerMenu, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HamburgerMenu.0.1.0\lib\net40\HamburgerMenu.dll</HintPath>
+    <Reference Include="ControlzEx, Version=5.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.5.0.1\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
     <Reference Include="Hardcodet.NotifyIcon.Wpf, Version=1.1.0.0, Culture=neutral, PublicKeyToken=682384a853a08aad, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.1.0\lib\net472\Hardcodet.NotifyIcon.Wpf.dll</HintPath>
@@ -88,7 +85,7 @@
       <HintPath>..\packages\MahApps.Metro.2.4.9\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -119,7 +116,7 @@
     <Compile Include="Utility\Capabilities.cs" />
     <Compile Include="Utility\Fan.cs" />
     <Compile Include="Utility\KeyboardBackLight.cs" />
-    <Compile Include="Utility\KeyboardSofwareEffects.cs" />
+    <Compile Include="Utility\KeyboardEffects.cs" />
     <Compile Include="Utility\Monitor.cs" />
     <Compile Include="Utility\PowerMode.cs" />
     <Compile Include="Utility\Structs.cs" />
@@ -136,6 +133,10 @@
     <Compile Include="Views\Page_PerformanceSettings.xaml.cs">
       <DependentUpon>Page_PerformanceSettings.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dark.RedBlack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,12 +194,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Main_Window\icon_fan.png" />
-    <Resource Include="Assets\Main_Window\icon_keyboard.png" />
-    <Resource Include="Assets\Main_Window\icon_performance.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Main_Window\icon_home.png" />
+    <Resource Include="Assets\Main_Window\FanSettings.png" />
+    <Resource Include="Assets\Main_Window\KeyboardSettings.png" />
+    <Resource Include="Assets\Main_Window\PerformanceSettings.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="InsydeDCHU.dll">
@@ -206,25 +204,31 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Page_PerformanceSettings\icon_battery.png" />
-    <Resource Include="Assets\Page_PerformanceSettings\icon_entertainment.png" />
-    <Resource Include="Assets\Page_PerformanceSettings\icon_fan.png" />
-    <Resource Include="Assets\Page_PerformanceSettings\icon_performance.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Page_FanSettings\sol.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Page_FanSettings\main.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Main_Window\icon_others.png" />
+    <Resource Include="Assets\Main_Window\OtherSettings.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\main_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\main_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Page_PerformanceSettings\icon_entartainment.png" />
+    <Resource Include="Assets\Page_PerformanceSettings\icon_performance.png" />
+    <Resource Include="Assets\Page_PerformanceSettings\icon_slient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Page_PerformanceSettings\icon_powersave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Page_FanSettings\button.png" />
+    <Resource Include="Assets\Page_FanSettings\middle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Main_Window\FanSettings_Selected.png" />
+    <Resource Include="Assets\Main_Window\KeyboardSettings_Selected.png" />
+    <Resource Include="Assets\Main_Window\OtherSettings_Selected.png" />
+    <Resource Include="Assets\Main_Window\PerformanceSettings_Selected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
