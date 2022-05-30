@@ -37,4 +37,3 @@
 - Fix Anti-Dust mode
 - Change keyboard software effects using
 - Change ChangeTouchpadMode button to toggle
-- Add TitleBar for drag window
