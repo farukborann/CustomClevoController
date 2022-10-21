@@ -113,6 +113,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Lib\FanControl\Clevo\CleDef.cs" />
+    <Compile Include="Lib\FanControl\Clevo_MSG.cs" />
+    <Compile Include="Lib\FanControl\DebugLog.cs" />
+    <Compile Include="Lib\FanControl\FAN.cs" />
+    <Compile Include="Lib\FanControl\Global.cs" />
+    <Compile Include="Lib\FanControl\InsydeDriver.cs" />
+    <Compile Include="Lib\FanControl\language.cs" />
+    <Compile Include="Lib\FanControl\RWIni.cs" />
+    <Compile Include="Lib\FanControl\RWReg.cs" />
+    <Compile Include="Lib\FanControl\Support_BIT.cs" />
     <Compile Include="Utility\Capabilities.cs" />
     <Compile Include="Utility\Fan.cs" />
     <Compile Include="Utility\KeyboardBackLight.cs" />
