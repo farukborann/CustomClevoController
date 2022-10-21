@@ -34,3 +34,5 @@ Desktop.ini
 .DS_Store
 
 */bin/**
+*/obj/**
+*/.idea/**
