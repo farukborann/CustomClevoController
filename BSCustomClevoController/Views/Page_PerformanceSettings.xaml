@@ -66,7 +66,7 @@
                         </Grid.RowDefinitions>
 
                         <Image Source="/Assets/Page_PerformanceSettings/icon_slient.png" />
-                        <TextBlock x:Name="QuietModeBtnText" Text="Sessiz Mod" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#cccccc" TextAlignment="Center" 
+                        <TextBlock x:Name="QuietModeBtnText" Text="Quiet Mode" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#cccccc" TextAlignment="Center" 
                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
 
                     </Grid>
@@ -83,7 +83,7 @@
                         </Grid.RowDefinitions>
 
                         <Image Source="/Assets/Page_PerformanceSettings/icon_powersave.png" />
-                        <TextBlock x:Name="PowerSaveModeBtnText" Text="Güç Tasarrufu" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2" TextAlignment="Center" 
+                        <TextBlock x:Name="PowerSaveModeBtnText" Text="Power Saving" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2" TextAlignment="Center" 
                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
 
                     </Grid>
@@ -100,7 +100,7 @@
                         </Grid.RowDefinitions>
 
                         <Image Source="/Assets/Page_PerformanceSettings/icon_entartainment.png" />
-                        <TextBlock x:Name="EntertainmentModeBtnText" Text="Eglence Modu" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2"  TextAlignment="Center" 
+                        <TextBlock x:Name="EntertainmentModeBtnText" Text="Entertainment Mode" FontSize="20" FontFamily="Calisto MT Bold" Foreground="#b2b2b2"  TextAlignment="Center" 
                                    VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
 
                     </Grid>
@@ -117,15 +117,15 @@
                         </Grid.RowDefinitions>
 
                         <Image Source="/Assets/Page_PerformanceSettings/icon_performance.png" />
-                        <TextBlock x:Name="PerformanceModeBtnText" Text="Tam Performans" FontSize="18" FontFamily="Calisto MT Bold" Foreground="#b2b2b2" TextAlignment="Center"
-                                   VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1"/>
+                        <TextBlock x:Name="PerformanceModeBtnText" FontSize="18" FontFamily="Calisto MT Bold" Foreground="#b2b2b2" TextAlignment="Center"
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Grid.Row="1" Text="Full Performance"/>
                     </Grid>
                 </Button.Content>
             </Button>
 
         </Grid>
         
-        <TextBlock Text="Açıklama" FontSize="20" Margin="25,25,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#b2b2b2" />
+        <TextBlock Text="Explanation" FontSize="20" Margin="25,25,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#b2b2b2" />
         <TextBlock Text="" x:Name="modeDetais" FontSize="13" Margin="25,65,25,25" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="#b2b2b2"  />
 
     </Grid>
