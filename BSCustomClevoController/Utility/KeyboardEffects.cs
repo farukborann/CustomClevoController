@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using static BSCustomClevoController.Utility.Structs;
 
 namespace BSCustomClevoController.Utility
 {
     internal static class KeyboardEffects
     {
-        public static int updateRate = 16; // update rate
+        public static int updateRate = 33; // update rate (30 FPS)
         public static int Duration = 1000; // fallback
 
         // Hardware effects
@@ -44,67 +45,60 @@ namespace BSCustomClevoController.Utility
 
         public static async void BreathEffect(object sender, EventArgs e) // refactor
         {
-            await System.Threading.Tasks.Task.Run(async () =>
+            float alphaStep = 255f * updateRate / Duration;
+
+            KeyboardStatus status = KeyboardBackLight.GetStatus();
+
+            if (status.BackLight.A >= 255)
             {
-                int timer = Duration;
-                float alphaStep = 255f * updateRate / timer;
+                breathDimming = true;
+            }
+            else if (status.BackLight.A <= 0)
+            {
+                breathDimming = false;
+            }
 
-                KeyboardStatus status = KeyboardBackLight.GetStatus();
+            float alpha = status.BackLight.A;
+            alpha = breathDimming ? alpha - alphaStep : alpha + alphaStep;
 
-                if (status.BackLight.A >= 255)
-                {
-                    breathDimming = true;
-                }
-                else if (status.BackLight.A <= 0)
-                {
-                    breathDimming = false;
-                }
+            alpha = Math.Max(0f, Math.Min(255f, alpha));
 
-                float alpha = status.BackLight.A;
-                alpha = breathDimming ? alpha - alphaStep : alpha + alphaStep;
+            KeyboardBackLight.SetBrightness(Convert.ToByte(alpha));
 
-                alpha = Math.Max(0f, Math.Min(255f, alpha));
-
-                KeyboardBackLight.SetBrightness(Convert.ToByte(alpha));
-                await System.Threading.Tasks.Task.Delay(updateRate);
-            });
+            await Task.Delay(updateRate);
         }
 
         public static async void ColorfulBreathEffect(object sender, EventArgs e) //refactor from breatheffect code to use colors
         {
-            await System.Threading.Tasks.Task.Run(async () =>
+            float alphaStep = 255f * updateRate / Duration;
+
+            KeyboardStatus status = KeyboardBackLight.GetStatus();
+            float alpha = status.BackLight.A;
+
+            if (alpha >= 255f)
             {
-                int timer = Duration;
-                float alphaStep = 255f * updateRate / timer;
+                breathDimming = true;
+            }
+            else if (alpha <= 0f)
+            {
+                breathDimming = false;
+                breathColorIndex = (breathColorIndex + 1) % Colors.Length; // change color after brightness reaches 0
+            }
 
-                KeyboardStatus status = KeyboardBackLight.GetStatus();
-                float alpha = status.BackLight.A;
+            alpha = breathDimming ? alpha - alphaStep : alpha + alphaStep;
+            alpha = Math.Max(0f, Math.Min(255f, alpha));
 
-                if (alpha >= 255f)
-                {
-                    breathDimming = true;
-                }
-                else if (alpha <= 0f)
-                {
-                    breathDimming = false;
-                    breathColorIndex = (breathColorIndex + 1) % Colors.Length; // change color after brightness reaches 0
-                }
+            Color baseColor = Colors[breathColorIndex];
+            float brightness = alpha / 255f;
 
-                alpha = breathDimming ? alpha - alphaStep : alpha + alphaStep;
-                alpha = Math.Max(0f, Math.Min(255f, alpha));
+            int r = (int)(baseColor.R);
+            int g = (int)(baseColor.G);
+            int b = (int)(baseColor.B);
 
-                Color baseColor = Colors[breathColorIndex];
-                float brightness = alpha / 255f;
+            KeyboardBackLight.SetColour((byte)Clamp(r), (byte)Clamp(g), (byte)Clamp(b));
+            KeyboardBackLight.SetBrightness(Convert.ToByte(alpha));
 
-                int r = (int)(baseColor.R);
-                int g = (int)(baseColor.G);
-                int b = (int)(baseColor.B);
-
-                KeyboardBackLight.SetColour((byte)Clamp(r), (byte)Clamp(g), (byte)Clamp(b));
-                KeyboardBackLight.SetBrightness(Convert.ToByte(alpha));
-
-                await System.Threading.Tasks.Task.Delay(updateRate);
-            });
+            await Task.Delay(updateRate);
         }
 
         private static Color InterpolateColor(Color start, Color end, float t) // smooth color transition for cycle effect
@@ -119,30 +113,27 @@ namespace BSCustomClevoController.Utility
         private static DateTime transitionStart = DateTime.Now;
         public static async void CycleEffect(object sender, EventArgs e) // refactor
         {
-            await System.Threading.Tasks.Task.Run(async () =>
+            double currentTime = (DateTime.Now - transitionStart).TotalMilliseconds;
+            float timer = (float)(currentTime / Duration);
+            timer = Math.Min(1f, timer);
+
+            Color from = Colors[currentColorIndex];
+            Color to = Colors[(currentColorIndex + 1) % Colors.Length];
+
+            if (timer >= 1f)
             {
-                double currentTime = (DateTime.Now - transitionStart).TotalMilliseconds;
-                float timer = (float)(currentTime / Duration);
-                timer = Math.Min(1f, timer);
+                currentColorIndex = (currentColorIndex + 1) % Colors.Length;
+                transitionStart = DateTime.Now;
+                timer = 0f;
 
-                Color from = Colors[currentColorIndex];
-                Color to = Colors[(currentColorIndex + 1) % Colors.Length];
+                from = Colors[currentColorIndex];
+                to = Colors[(currentColorIndex + 1) % Colors.Length];
+            }
 
-                if (timer >= 1f)
-                {
-                    currentColorIndex = (currentColorIndex + 1) % Colors.Length;
-                    transitionStart = DateTime.Now;
-                    timer = 0f;
+            Color interpolated = InterpolateColor(from, to, timer);
+            KeyboardBackLight.SetColour(interpolated.R, interpolated.G, interpolated.B);
 
-                    from = Colors[currentColorIndex];
-                    to = Colors[(currentColorIndex + 1) % Colors.Length];
-                }
-
-                Color interpolated = InterpolateColor(from, to, timer);
-                KeyboardBackLight.SetColour(interpolated.R, interpolated.G, interpolated.B);
-
-                await System.Threading.Tasks.Task.Delay(updateRate);
-            });
+            await Task.Delay(updateRate);
         }
 
         private static int Clamp(int value) => Math.Max(0, Math.Min(255, value)); // limit everything
