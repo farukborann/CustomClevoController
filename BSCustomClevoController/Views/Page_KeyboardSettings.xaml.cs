@@ -59,7 +59,7 @@ namespace BSCustomClevoController.Views
 
         private void LedColorCanvas_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            System.Threading.Thread.Sleep(10);
+            System.Threading.Thread.Sleep(100); //reduce cpu usage
             KeyboardBackLight.SetColour(Convert.ToByte(LedColorCanvas.R), Convert.ToByte(LedColorCanvas.G), Convert.ToByte(LedColorCanvas.B));
             KeyboardBackLight.SetBrightness(Convert.ToByte(LedColorCanvas.A));
         }
@@ -88,9 +88,9 @@ namespace BSCustomClevoController.Views
                 LedColorCanvas.IsEnabled = true;
 
                 KeyboardBackLight.TurnOn();
-                KeyboardBackLight.SetColour(255, 0, 0);
+                KeyboardBackLight.SetColour(255, 255, 255);
                 KeyboardBackLight.SetBrightness(255);
-                LedColorCanvas.SelectedColor = Color.FromRgb(255, 0, 0);
+                LedColorCanvas.SelectedColor = Color.FromRgb(255, 255, 255);
             }
             else
             {
@@ -110,6 +110,23 @@ namespace BSCustomClevoController.Views
         {
             KeyboardBackLight.SetBrightness(255);
             KeyboardEffects.Effects[EffectsListBox.SelectedIndex].SetEffect();
+
+            if (int.TryParse(EffectDurationBox.Text, out int duration))
+            {
+                if (duration < 1000)
+                {
+                    duration = 1000;
+                    EffectDurationBox.Text = "1000"; // update the box
+                    MessageBox.Show("Minimum duration is 1000 ms (1 sec)", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                KeyboardEffects.Duration = duration;
+            }
+            else
+            {
+                KeyboardEffects.Duration = 3000; // fallback
+                EffectDurationBox.Text = "3000";
+                MessageBox.Show("Invalid input. Duration has been reset to 3000 ms.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void BootEffectCheckBox_Checked(object sender, RoutedEventArgs e)

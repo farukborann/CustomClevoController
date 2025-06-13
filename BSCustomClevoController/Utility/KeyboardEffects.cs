@@ -6,76 +6,145 @@ namespace BSCustomClevoController.Utility
 {
     internal static class KeyboardEffects
     {
-        //Set Effects
-        public static KeyboardEffect Random = new KeyboardEffect() { Name = "Random", UniqId = 112, Id = 0 }; /// Goes every ~0.5 sec to a different random colour (with the current brightness)
-        public static KeyboardEffect Breath = new KeyboardEffect() { Name = "Breath", UniqId = 16, Id = 2 }; /// Breathes with the current colour (cycles from 0 to brightness, around 2 sec)
-        public static KeyboardEffect Cycle = new KeyboardEffect() { Name = "Cycle", UniqId = 51, Id = 3 }; /// Cycles through primary and secondary colours (going from 0 to brightness in between, around 2 sec). Blue, Green, Red, Blue?, Cyan, Yellow, Pink  
-        public static KeyboardEffect Wave = new KeyboardEffect() { Name = "Wave", UniqId = 176, Id = 4 }; /// Slowly (around every 10 sec) shows a random colour slowly increasing and then decreasing the brightness (goes from 0 to brightness)
-        public static KeyboardEffect Dance = new KeyboardEffect() { Name = "Dance", UniqId = 128, Id = 5 }; /// Flashes every 0.5 sec with a different random colour (goes from 0 to brightness)
-        public static KeyboardEffect Tempo = new KeyboardEffect() { Name = "Tempo", UniqId = 144, Id = 6 }; /// Flashes a colour, then goes off shortly, then flashes the same colour, then goes off longer ~1 sec, then starts over with a different colour (goes from 0 to brightness)
-        public static KeyboardEffect Flash = new KeyboardEffect() { Name = "Flash", UniqId = 160, Id = 7 }; /// Flashes every 1 sec with a different random colour (goes from 0 to brightness)
-        public static KeyboardEffect SoftwareBreath = new KeyboardEffect() { Name = "Breath", UniqId = 0, Id = 8, Func = BreathEffect, Milisecons = 1 }; // , Milisecons=40
-        public static KeyboardEffect SoftwareCycle = new KeyboardEffect() { Name = "Cycle", UniqId = 0, Id = 9, Func = CycleEffect, Milisecons = 100 };
+        public static int updateRate = 16; // update rate
+        public static int Duration = 1000; // fallback
 
-        public static KeyboardEffect[] Effects = new KeyboardEffect[] { Random, Breath, Cycle, Wave, Dance, Tempo, Flash, SoftwareBreath, SoftwareCycle };
-        static bool lowA = false;
-        public static async void BreathEffect(object sender, EventArgs e)
+        // Hardware effects
+        public static KeyboardEffect Random = new KeyboardEffect() { Name = "Random", UniqId = 112, Id = 0 };
+        public static KeyboardEffect Breath = new KeyboardEffect() { Name = "Breath", UniqId = 16, Id = 2 };
+        public static KeyboardEffect Cycle = new KeyboardEffect() { Name = "Cycle", UniqId = 51, Id = 3 };
+        public static KeyboardEffect Wave = new KeyboardEffect() { Name = "Wave", UniqId = 176, Id = 4 };
+        public static KeyboardEffect Dance = new KeyboardEffect() { Name = "Dance", UniqId = 128, Id = 5 };
+        public static KeyboardEffect Tempo = new KeyboardEffect() { Name = "Tempo", UniqId = 144, Id = 6 };
+        public static KeyboardEffect Flash = new KeyboardEffect() { Name = "Flash", UniqId = 160, Id = 7 };
+
+        // Software effects
+        public static KeyboardEffect SoftwareBreath = new KeyboardEffect() { Name = "Breath", UniqId = 0, Id = 8, Func = BreathEffect, Milisecons = updateRate };
+        public static KeyboardEffect SoftwareCycle = new KeyboardEffect() { Name = "Cycle", UniqId = 0, Id = 9, Func = CycleEffect, Milisecons = updateRate };
+        public static KeyboardEffect SoftwareBreathColor = new KeyboardEffect() { Name = "Colorful Breath", UniqId = 0, Id = 10, Func = ColorfulBreathEffect, Milisecons = updateRate };
+
+        public static KeyboardEffect[] Effects = new KeyboardEffect[]
         {
-            await System.Threading.Tasks.Task.Run(() =>
+            Random, Breath, Cycle, Wave, Dance, Tempo, Flash, SoftwareBreath, SoftwareCycle, SoftwareBreathColor
+        };
+
+        private static readonly Color[] Colors = new Color[]
+        {
+            Color.Red,
+            Color.Blue,
+            Color.Green,
+            Color.Yellow,
+            Color.Cyan,
+            Color.Magenta
+        };
+
+        // states
+        private static bool breathDimming = false;
+        private static int breathColorIndex = 0;
+
+        public static async void BreathEffect(object sender, EventArgs e) // refactor
+        {
+            await System.Threading.Tasks.Task.Run(async () =>
             {
+                int timer = Duration;
+                float alphaStep = 255f * updateRate / timer;
+
                 KeyboardStatus status = KeyboardBackLight.GetStatus();
 
-                if (status.BackLight.A == 255) { lowA = true; }
-                else if (status.BackLight.A == 0) { lowA = false; }
-
-                int newAlpha = lowA ? status.BackLight.A - 5 : status.BackLight.A + 5;
-                if (newAlpha > 255) newAlpha = 255;
-                if (newAlpha < 0) newAlpha = 0;
-
-                KeyboardBackLight.SetBrightness(Convert.ToByte(newAlpha));
-            });
-        }
-
-        static Color targetColor = Color.Blue;
-        public static Color Interpolate(this Color source, Color target)
-        {
-            int clamp(int value) => Math.Max(0, Math.Min(255, value)); // Refactor
-
-            int r = clamp(source.R + Math.Sign(target.R - source.R) * 5);
-            int g = clamp(source.G + Math.Sign(target.G - source.G) * 5);
-            int b = clamp(source.B + Math.Sign(target.B - source.B) * 5);
-
-            return Color.FromArgb(255, r, g, b);
-        }
-
-        public static async void CycleEffect(object sender, EventArgs e) // Fix Crash
-        {
-            await System.Threading.Tasks.Task.Run(() =>
-            {
-                try
+                if (status.BackLight.A >= 255)
                 {
-                    KeyboardStatus status = KeyboardBackLight.GetStatus();
-                    Color current = status.BackLight; // Assuming BackLight is a Color struct
-
-                    if (current.ToArgb() != targetColor.ToArgb())
-                    {
-                        Color newColor = Interpolate(current, targetColor);
-                        KeyboardBackLight.SetColour(newColor.R, newColor.G, newColor.B);
-                    }
-                    else
-                    {
-                        if (current.ToArgb() == Color.Blue.ToArgb()) targetColor = Color.FromArgb(255, 0, 125, 0); // Green
-                        else if (current.ToArgb() == Color.FromArgb(255, 0, 125, 0).ToArgb()) targetColor = Color.Red;
-                        else if (current.ToArgb() == Color.Red.ToArgb()) targetColor = Color.Cyan;
-                        else if (current.ToArgb() == Color.Cyan.ToArgb()) targetColor = Color.Yellow;
-                        else if (current.ToArgb() == Color.Yellow.ToArgb()) targetColor = Color.FromArgb(255, 255, 190, 205); // Pink
-                        else if (current.ToArgb() == Color.FromArgb(255, 255, 190, 205).ToArgb()) targetColor = Color.Blue;
-
-                        Color newColor = Interpolate(current, targetColor);
-                        KeyboardBackLight.SetColour(newColor.R, newColor.G, newColor.B);
-                    }
+                    breathDimming = true;
                 }
+                else if (status.BackLight.A <= 0)
+                {
+                    breathDimming = false;
+                }
+
+                float alpha = status.BackLight.A;
+                alpha = breathDimming ? alpha - alphaStep : alpha + alphaStep;
+
+                alpha = Math.Max(0f, Math.Min(255f, alpha));
+
+                KeyboardBackLight.SetBrightness(Convert.ToByte(alpha));
+                await System.Threading.Tasks.Task.Delay(updateRate);
             });
         }
+
+        public static async void ColorfulBreathEffect(object sender, EventArgs e) //refactor from breatheffect code to use colors
+        {
+            await System.Threading.Tasks.Task.Run(async () =>
+            {
+                int timer = Duration;
+                float alphaStep = 255f * updateRate / timer;
+
+                KeyboardStatus status = KeyboardBackLight.GetStatus();
+                float alpha = status.BackLight.A;
+
+                if (alpha >= 255f)
+                {
+                    breathDimming = true;
+                }
+                else if (alpha <= 0f)
+                {
+                    breathDimming = false;
+                    breathColorIndex = (breathColorIndex + 1) % Colors.Length; // change color after brightness reaches 0
+                }
+
+                alpha = breathDimming ? alpha - alphaStep : alpha + alphaStep;
+                alpha = Math.Max(0f, Math.Min(255f, alpha));
+
+                Color baseColor = Colors[breathColorIndex];
+                float brightness = alpha / 255f;
+
+                int r = (int)(baseColor.R);
+                int g = (int)(baseColor.G);
+                int b = (int)(baseColor.B);
+
+                KeyboardBackLight.SetColour((byte)Clamp(r), (byte)Clamp(g), (byte)Clamp(b));
+                KeyboardBackLight.SetBrightness(Convert.ToByte(alpha));
+
+                await System.Threading.Tasks.Task.Delay(updateRate);
+            });
+        }
+
+        private static Color InterpolateColor(Color start, Color end, float t) // smooth color transition for cycle effect
+        {
+            int r = (int)(start.R + (end.R - start.R) * t);
+            int g = (int)(start.G + (end.G - start.G) * t);
+            int b = (int)(start.B + (end.B - start.B) * t);
+            return Color.FromArgb(255, Clamp(r), Clamp(g), Clamp(b));
+        }
+
+        private static int currentColorIndex = 0;
+        private static DateTime transitionStart = DateTime.Now;
+        public static async void CycleEffect(object sender, EventArgs e) // refactor
+        {
+            await System.Threading.Tasks.Task.Run(async () =>
+            {
+                double currentTime = (DateTime.Now - transitionStart).TotalMilliseconds;
+                float timer = (float)(currentTime / Duration);
+                timer = Math.Min(1f, timer);
+
+                Color from = Colors[currentColorIndex];
+                Color to = Colors[(currentColorIndex + 1) % Colors.Length];
+
+                if (timer >= 1f)
+                {
+                    currentColorIndex = (currentColorIndex + 1) % Colors.Length;
+                    transitionStart = DateTime.Now;
+                    timer = 0f;
+
+                    from = Colors[currentColorIndex];
+                    to = Colors[(currentColorIndex + 1) % Colors.Length];
+                }
+
+                Color interpolated = InterpolateColor(from, to, timer);
+                KeyboardBackLight.SetColour(interpolated.R, interpolated.G, interpolated.B);
+
+                await System.Threading.Tasks.Task.Delay(updateRate);
+            });
+        }
+
+        private static int Clamp(int value) => Math.Max(0, Math.Min(255, value)); // limit everything
     }
 }
