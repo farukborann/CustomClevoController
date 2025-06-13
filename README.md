@@ -5,10 +5,11 @@
 - Control Center 3.0 features
 	- Keyboard features
 		- Manually change the keyboard color
-		- Keyboard effects (Driver based)
+		- Keyboard effects (Driver and Software based)
 		- Keyboard brigthness
 		- Sleep timer
 		- Enable/Disable Booteffect
+		- Set Effect Duration
 
 	- Power Modes
 		- Performance mode
@@ -35,5 +36,5 @@
 
 ### Todo
 - Fix Anti-Dust mode
-- Change keyboard software effects using
+- Change keyboard software effects
 - Change ChangeTouchpadMode button to toggle
