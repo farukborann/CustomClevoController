@@ -13,10 +13,10 @@ namespace BSCustomClevoController.Views
         SolidColorBrush colorRed = new SolidColorBrush(Color.FromArgb(255, 217, 25, 25));
         SolidColorBrush colorGray = new SolidColorBrush(Color.FromArgb(255, 204, 204, 204));
 
-        string QuietModeDes = "Fan ses çıkartmayacak kadar yavaşlatılır, uzun kullanımda fazla ısınmaya yol açabilir.";
-        string PowerSaveModeDes = "Pil kullanımını azaltmak için performanstan feragat edilir ama kullanım süresini arttırır.";
-        string PerformanceModeDes = "Tüm donanım maksimum enerji ile beslenir ve bilgisayar çıkabileceği en yüksek performan kapasitesine çıkar, batarya kullanımında (prize bağlı değilken) kullanım süresi minimum olur.";
-        string EntertainmentModeDes = "Performans ve enerji kullanımı dengelenmiştir; oyun, tasarım, kurgu vb... yüksek performans gerektiren durumlar içindir. (Prize bağlı durumlarda tavsiye edilir.)";
+        string QuietModeDes = "The fan is slowed down enough to be silent, which may lead to overheating during prolonged use.";
+        string PowerSaveModeDes = "Performance is sacrificed to reduce battery usage, but it increases usage time.";
+        string PerformanceModeDes = "All hardware is powered at maximum energy, pushing the computer to its highest performance capacity. Battery life is minimized when not plugged in.";
+        string EntertainmentModeDes = "Performance and power consumption are balanced; intended for high-performance needs such as gaming, design, editing, etc. (Recommended when plugged in.)";
 
         public Page_PerformanceSettings()
         {

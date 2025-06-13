@@ -15,26 +15,6 @@ namespace BSCustomClevoController.Views
         {
             InitializeComponent();
             FeaturesListBox.ItemsSource = Capabilities.Check();
-
-            List<string> monitorModes = new List<string>() { "Açık", "Kapalı", "StandBy" };
-            monitorModesComboBox.ItemsSource = monitorModes;
-        }
-
-        private void monitorModesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            switch (monitorModesComboBox.SelectedIndex)
-            {
-                case 0:
-                    MonitorControl.ChangeMonitorState(MonitorControl.MonitorMode.MONITOR_ON);
-                    break;
-                case 1:
-                    MonitorControl.ChangeMonitorState(MonitorControl.MonitorMode.MONITOR_OFF);
-                    break;
-                case 2:
-                    MonitorControl.ChangeMonitorState(MonitorControl.MonitorMode.MONITOR_STANBY);
-                    break;
-
-            }
         }
 
         private void TouchPadToggle_Click(object sender, RoutedEventArgs e)

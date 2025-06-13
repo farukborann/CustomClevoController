@@ -33,29 +33,29 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
     </Page.Resources>
-    
-    
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
-        
 
-        
-        <TextBlock Text="Klavye Rengi" FontSize="20" Foreground="#cccccc" 
+
+
+        <TextBlock Text="Keyboard Color" FontSize="20" Foreground="#cccccc" 
                    HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="0,150,0,0" Grid.Column="0" />
         <CheckBox x:Name="LedStatusCheckBox" Checked="LedStatusCheckBox_Checked" Unchecked="LedStatusCheckBox_Unchecked"
                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="165,156,0,0" Grid.Column="0" />
         <Controls:ColorCanvas x:Name="LedColorCanvas" IsEnabled="False" Background="#3c3c3c" SelectedColorChanged="LedColorCanvas_SelectedColorChanged"
-                              LabelAlphaChannel="Parlaklık" LabelColorPreview="Önizleme" LabelColorName="İsim"
-                              Grid.Column="0" Height="275" Width="450" Margin="0,0,0,0"
+                              LabelAlphaChannel="Brightness" LabelColorPreview="Preview" LabelColorName="Color Code"
+                              Grid.Column="0" Margin="159,222,120,198"
                               VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
 
-        <TextBlock Text="Önyükleme Etkisi" Foreground="#cccccc" FontSize="15" 
+        <TextBlock Text="Override Boot Effect" Foreground="#cccccc" FontSize="15" 
                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,50,62,0" Grid.Column="1"/>
         <CheckBox x:Name="BootEffectCheckBox" Checked="BootEffectCheckBox_Checked" Unchecked="BootEffectCheckBox_Unchecked" Foreground="#cccccc" 
                   HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,52,30,0" Grid.Column="1" />
@@ -66,7 +66,7 @@
                 <RowDefinition Height="35*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Efektler" Foreground="#cccccc" FontSize="20" 
+            <TextBlock Text="Effects" Foreground="#cccccc" FontSize="20" 
                    HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,125,20,0" Grid.Row="0"/>
             <CheckBox x:Name="ModeStatus" Checked="ModeStatus_Checked" Unchecked="ModeStatus_Unchecked" Foreground="#cccccc" 
                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="100,132,0,0" Grid.Row="0"/>
@@ -74,14 +74,16 @@
                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,75,0,0"
                  Width="200" Height="200" Grid.Row="0" />
             <Button x:Name="ApplyEffectButton" Click="ApplyEffectButton_Click"
-                Content="Efekti Uygula" TextBlock.FontSize="14"
+                Content="Apply Effect" TextBlock.FontSize="14"
                 Height="23" Width="120" IsEnabled="False"
                 Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,325,0,0" />
-
-            
-            <TextBlock Text="Klavye Uyku Zamanlayıcısı" FontSize="20" Foreground="#cccccc" 
+            <TextBlock Text="Effect Duration (ms)" FontSize="20" Foreground="#cccccc"
+           HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,422,0,0" Grid.Row="0" />
+            <TextBox x:Name="EffectDurationBox" Text="3000" FontSize="16" Width="100" Height="30"
+         HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,458,0,0" Grid.Row="0" Grid.RowSpan="2" />
+            <TextBlock Text="Keyboard Sleep Timer" FontSize="20" Foreground="#cccccc" 
                        HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,100" Grid.Row="1" />
-            <TextBlock Text="Saat          Dakika        Saniye" FontSize="20" Foreground="#cccccc" 
+            <TextBlock Text=" Hour        Minute      Second" FontSize="20" Foreground="#cccccc" 
                        HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,30" Grid.Row="1" />
             <TextBox Name="KeyboarSleepTimerHours" Text="0" FontSize="20" TextAlignment="Center"
                  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,200,0" 
@@ -93,10 +95,10 @@
                  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="200,50,0,0" 
                  Width="75" Height="40"/>
         </Grid>
-        
+
 
 
 
     </Grid>
-    
+
 </Page>

@@ -13,12 +13,11 @@ namespace BSCustomClevoController.Views
     /// </summary>
     public partial class Page_FanSettings : Page
     {
-        string AutoDesc = "Fan hızı otomatik ayarlanır, gündelik kullanım içindir.";
-        string MaxDesc = "Fan hızı en yükseğe ayarlanır, bilgisayarı hızlı soğutmak içindir.";
-        string MaxQDesc = "Fan MaxQ moduna alınır, her model bilgisayar desteklemeyebilir.";
-        string AntiDustDesc = "Bilgisayar bileşenlerindeki tozu çıkartmak içindir, her model bilgisayar desteklemeyebilir.";
-        string CustomDesc = "Fan hızı yapacağınız özel ayara göre ayarlanır, belirli derecelerde belirli hızlara ayarlayabilirsiniz.";
-
+        string AutoDesc = "Fan speed is adjusted automatically, suitable for everyday use.";
+        string MaxDesc = "Fan speed is set to maximum, intended for quickly cooling the computer.";
+        string MaxQDesc = "Fan is set to MaxQ mode, may not be supported by all laptop models.";
+        string AntiDustDesc = "Used to expel dust from computer components, may not be supported by all laptop models.";
+        string CustomDesc = "Fan speed is set based on your custom configuration; you can assign specific speeds to specific temperatures.";
         public Page_FanSettings()
         {
             InitializeComponent();
@@ -208,11 +207,11 @@ namespace BSCustomClevoController.Views
                 int GPU_D1 = Convert.ToInt32(GPU_Speed1.Text);
                 int GPU_D2 = Convert.ToInt32(GPU_Speed2.Text);
 
-                if (CPU_T1 >= CPU_T2 || 40 >= CPU_T1 || CPU_T2 >= 100) MessageBox.Show("Sıcaklık artacak şekilde ayarlanmalıdır !!! (CPU)");
-                else if (CPU_D1 >= CPU_D2 || 35 >= CPU_D1 || CPU_D2 >= 100) MessageBox.Show("Sıcaklık arttıkça hızda artmalıdır !!! (CPU)");
+                if (CPU_T1 >= CPU_T2 || 40 >= CPU_T1 || CPU_T2 >= 100) MessageBox.Show("Temperature should be set to increase! (CPU)");
+                else if (CPU_D1 >= CPU_D2 || 35 >= CPU_D1 || CPU_D2 >= 100) MessageBox.Show("Speed should increase as temperature increases! (CPU)");
 
-                if (GPU_T1 >= GPU_T2 || 40 >= GPU_T1 || GPU_T2 >= 100) MessageBox.Show("Sıcaklık artacak şekilde ayarlanmalıdır !!! (GPU)");
-                else if (GPU_D1 >= GPU_D2 || 35 >= GPU_D1 || GPU_D2 >= 100) MessageBox.Show("Sıcaklık arttıkça hızda artmalıdır !!! (GPU)");
+                if (GPU_T1 >= GPU_T2 || 40 >= GPU_T1 || GPU_T2 >= 100) MessageBox.Show("Temperature should be set to increase! (GPU)");
+                else if (GPU_D1 >= GPU_D2 || 35 >= GPU_D1 || GPU_D2 >= 100) MessageBox.Show("Speed should increase as temperature increases! (GPU)");
                 else
                 {
                     Fan.SetCustomFanTable(new FanInfo(40, 35, CPU_T1, CPU_D1, CPU_T2, CPU_D2),

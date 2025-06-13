@@ -38,25 +38,22 @@
     </Page.Resources>
 
     <Grid>
-        <TextBlock Text="Monitör Modu" FontSize="20" Foreground="#cccccc" 
-                   TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,200,0,0" />
-        <ComboBox x:Name="monitorModesComboBox" SelectionChanged="monitorModesComboBox_SelectionChanged" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,250,0,0" />
 
         <Button x:Name="TouchPadToggle" Click="TouchPadToggle_Click"
                 Width="150"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,975,0" >
-            <AccessText TextWrapping="Wrap" Text="TouchPad       Aç/Kapa" FontSize="20" TextBlock.TextAlignment="Center" />
+            <AccessText TextWrapping="Wrap" Text="TouchPad On/Off" FontSize="20" TextBlock.TextAlignment="Center" />
         </Button>
 
-        <TextBlock Text="Meraklısı İçin Driver Desteklemeleri" FontSize="15" Foreground="#cccccc" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,150,0" />
+        <TextBlock Text="Driver Supports for Enthusiasts" FontSize="15" Foreground="#cccccc" Width="250" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,150,0" />
         <ListBox x:Name="FeaturesListBox" Width="350" VerticalAlignment="Top" HorizontalAlignment="Center" Height="300" Margin="0,200,150,0" />
 
-        <TextBlock Text="Boran Software tarafından deneysel olarak geliştirilmiştir.    Tüm sorumluluk kullanıcınındır."
+        <TextBlock Text="It was developed experimentally by Boran Software. All responsibility belongs to the user."
                    Foreground="#cccccc" TextWrapping="Wrap" FontSize="25"
                    Width="350" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,250,50,0" />
 
         <Button x:Name="Exit" Click="Exit_Click"
                 Width="150"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="800,400,0,0" >
-            <AccessText TextWrapping="Wrap" Text="Programı Sonlandır" FontSize="20" TextBlock.TextAlignment="Center" />
+            <AccessText TextWrapping="Wrap" Text="Exit Program" FontSize="20" TextBlock.TextAlignment="Center" />
         </Button>
     </Grid>
     

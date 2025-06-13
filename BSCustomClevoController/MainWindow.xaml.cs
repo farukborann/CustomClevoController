@@ -26,10 +26,10 @@ namespace BSCustomClevoController
             NotifyIcon notifyIcon = new NotifyIcon { Icon = new Icon(stream), Visible = true };
 
             notifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Performans Ayarları", null, notifyIconContext_PerformanceMenuClick));
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Klavye Ayarları", null, notifyIconContext_KeyboardMenuClick));
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Fan Ayarları", null, notifyIconContext_FanMenuClick));
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Çıkış", null, notifyIconContext_ExitClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Performance Settings", null, notifyIconContext_PerformanceMenuClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Keyboard Settings", null, notifyIconContext_KeyboardMenuClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Fan Settings", null, notifyIconContext_FanMenuClick));
+            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Exit", null, notifyIconContext_ExitClick));
 
             notifyIcon.DoubleClick += delegate (object sender, EventArgs args)
                         {
