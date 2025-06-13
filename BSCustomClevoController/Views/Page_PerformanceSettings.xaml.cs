@@ -15,7 +15,7 @@ namespace BSCustomClevoController.Views
 
         string QuietModeDes = "The fan is slowed down enough to be silent, which may lead to overheating during prolonged use.";
         string PowerSaveModeDes = "Performance is sacrificed to reduce battery usage, but it increases usage time.";
-        string PerformanceModeDes = "All hardware is powered at maximum energy, pushing the computer to its highest performance capacity. Battery life is decreased when not plugged in.";
+        string PerformanceModeDes = "All hardware is powered at maximum energy, pushing the computer to its highest performance capacity. Battery life is minimized when not plugged in.";
         string EntertainmentModeDes = "Performance and power consumption are balanced; intended for high-performance needs such as gaming, design, editing, etc. (Recommended when plugged in.)";
 
         public Page_PerformanceSettings()
